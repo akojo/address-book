@@ -15,22 +15,13 @@ import (
 )
 
 func createDb() *bun.DB {
-	network := "tcp"
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=require",
+		os.Getenv("PGUSER"), os.Getenv("PGPASSWORD"), os.Getenv("PGHOST"), os.Getenv("PGDATABASE"))
 	if strings.HasSuffix(os.Getenv("PGHOST"), ".s.PGSQL.5432") {
-		network = "unix"
+		dsn = fmt.Sprintf("unix://%s:%s@%s%s?sslmode=disable",
+			os.Getenv("PGUSER"), os.Getenv("PGPASSWORD"), os.Getenv("PGDATABASE"), os.Getenv("PGHOST"))
 	}
-	insecure := false
-	if os.Getenv("PGSSLMODE") == "disable" {
-		insecure = true
-	}
-	sqldb := sql.OpenDB(pgdriver.NewConnector(
-		pgdriver.WithNetwork(network),
-		pgdriver.WithInsecure(insecure),
-		pgdriver.WithAddr(os.Getenv("PGHOST")),
-		pgdriver.WithDatabase(os.Getenv("PGDATABASE")),
-		pgdriver.WithUser(os.Getenv("PGUSER")),
-		pgdriver.WithPassword(os.Getenv("PGPASSWORD")),
-	))
+	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(dsn)))
 	return bun.NewDB(sqldb, pgdialect.New())
 }
 
