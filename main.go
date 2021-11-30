@@ -15,7 +15,7 @@ import (
 )
 
 func createDb() *bun.DB {
-	network := "postgres"
+	network := "tcp"
 	if strings.HasSuffix(os.Getenv("PGHOST"), ".s.PGSQL.5432") {
 		network = "unix"
 	}
