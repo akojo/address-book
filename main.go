@@ -15,7 +15,7 @@ import (
 )
 
 func createDb() *bun.DB {
-	dsn := fmt.Sprintf("postgres://%s:%s@%s:5432/%s?sslmode=require",
+	dsn := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=require",
 		os.Getenv("PGUSER"), os.Getenv("PGPASSWORD"), os.Getenv("PGHOST"), os.Getenv("PGDATABASE"))
 	if strings.HasSuffix(os.Getenv("PGHOST"), ".s.PGSQL.5432") {
 		dsn = fmt.Sprintf("unix://%s:%s@%s%s?sslmode=disable",
