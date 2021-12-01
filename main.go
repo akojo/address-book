@@ -23,6 +23,9 @@ func createDb() *bun.DB {
 }
 
 func main() {
+	for _, e := range os.Environ() {
+		log.Printf("%s", e)
+	}
 	db := createDb()
 
 	router := bunrouter.New()
