@@ -16,7 +16,7 @@ steps:
       - update
       - $_SERVICE_NAME
       - '--platform=managed'
-      - '--image=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+      - '--image=europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
       - '--region=europe-north1'
       - '--quiet'
     id: Deploy
