@@ -18,7 +18,7 @@ steps:
       - "--platform=managed"
       - "--image=europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
       - "--region=europe-north1"
-      - "--labels=gcb-trigger-id=$_TRIGGER_ID,gcb-build-id=$BUILD_ID,commit-sha=$COMMIT_SHA"
+      - "--labels=gcb-trigger-id=$_TRIGGER_ID"
       - "--quiet"
     id: Deploy
     entrypoint: gcloud
