@@ -2,22 +2,23 @@ steps:
   - name: gcr.io/k8s-skaffold/pack
     args:
       - build
-      - 'europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-      - '--builder=gcr.io/buildpacks/builder:v1'
-      - '--path=.'
-      - '--publish'
-      - '--cache-image=europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME/cache'
+      - "europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
+      - "--builder=gcr.io/buildpacks/builder:v1"
+      - "--path=."
+      - "--publish"
+      - "--cache-image=europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME/cache"
     id: Buildpack
     entrypoint: pack
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
     args:
       - run
       - services
       - update
       - $_SERVICE_NAME
-      - '--platform=managed'
-      - '--image=europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-      - '--region=europe-north1'
-      - '--quiet'
+      - "--platform=managed"
+      - "--image=europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
+      - "--region=europe-north1"
+      - "--labels=gcb-trigger-id=$_TRIGGER_ID,gcb-build-id=$BUILD_ID"
+      - "--quiet"
     id: Deploy
     entrypoint: gcloud
