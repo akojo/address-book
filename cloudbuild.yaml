@@ -4,10 +4,14 @@ steps:
       - build
       - "europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
       - '--builder=gcr.io/buildpacks/builder:v1'
-      - '--publish'
       - '--path=.'
     id: Buildpack
     entrypoint: pack
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - 'europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+    id: Push
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
     args:
       - run
@@ -23,4 +27,3 @@ steps:
     entrypoint: gcloud
 images:
   - 'europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-
