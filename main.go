@@ -30,7 +30,7 @@ func main() {
 
 	router := bunrouter.New()
 	router.GET("/", func(w http.ResponseWriter, req bunrouter.Request) error {
-		fmt.Fprintln(w, "hello, buildpacks")
+		fmt.Fprintln(w, "hello, world")
 		return nil
 	})
 	router.GET("/health", func(w http.ResponseWriter, req bunrouter.Request) error {
