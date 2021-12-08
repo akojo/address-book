@@ -4,8 +4,8 @@ go 1.17
 
 require (
 	github.com/jackc/pgx/v4 v4.14.1
-	github.com/uptrace/bun v1.0.18
-	github.com/uptrace/bun/dialect/pgdialect v1.0.18
+	github.com/uptrace/bun v1.0.19
+	github.com/uptrace/bun/dialect/pgdialect v1.0.19
 	github.com/uptrace/bunrouter v1.0.8
 )
 
@@ -22,7 +22,7 @@ require (
 	github.com/tmthrgd/go-hex v0.0.0-20190904060850-447a3041c3bc // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871 // indirect
-	golang.org/x/sys v0.0.0-20211123173158-ef496fb156ab // indirect
-	golang.org/x/text v0.3.6 // indirect
+	golang.org/x/crypto v0.0.0-20211202192323-5770296d904e // indirect
+	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
+	golang.org/x/text v0.3.7 // indirect
 )
