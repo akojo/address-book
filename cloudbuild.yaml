@@ -2,15 +2,15 @@ steps:
   - name: gcr.io/k8s-skaffold/pack
     args:
       - build
-      - "europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
-      - '--builder=gcr.io/buildpacks/builder:v1'
-      - '--path=.'
+      - "$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
+      - "--builder=gcr.io/buildpacks/builder:v1"
+      - "--path=."
     id: Buildpack
     entrypoint: pack
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - 'europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+      - "$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
     id: Push
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
     args:
@@ -19,11 +19,11 @@ steps:
       - update
       - $_SERVICE_NAME
       - "--platform=managed"
-      - "--image=europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
+      - "--image=$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
       - "--region=europe-north1"
       - "--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID"
       - "--quiet"
     id: Deploy
     entrypoint: gcloud
 images:
-  - 'europe-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
+  - "$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA"
